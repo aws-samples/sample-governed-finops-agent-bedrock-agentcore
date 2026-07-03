@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo "=== Pre-build - ECR Login ==="
+      - echo "Logging in to Amazon ECR..."
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+
+  build:
+    commands:
+      - echo "=== Build - Remediator Agent Docker image ==="
+      - cd agentcore-remediator
+      - echo "Building Docker image..."
+      - docker build -t $ECR_REPO_URI:$CODEBUILD_BUILD_NUMBER .
+      - docker tag $ECR_REPO_URI:$CODEBUILD_BUILD_NUMBER $ECR_REPO_URI:latest
+
+  post_build:
+    commands:
+      - echo "=== Post-build - Push to ECR ==="
+      - docker push $ECR_REPO_URI:$CODEBUILD_BUILD_NUMBER
+      - docker push $ECR_REPO_URI:latest
+      - echo "Remediator Agent image pushed successfully."

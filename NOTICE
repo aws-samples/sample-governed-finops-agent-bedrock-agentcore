@@ -1,0 +1,251 @@
+Sample FinOps Agent for Amazon Bedrock AgentCore
+Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+This project includes the following third-party software/licenses:
+
+================================================================================
+
+PYTHON DEPENDENCIES
+================================================================================
+
+Core Agent Dependencies (agentcore/requirements.txt):
+-----------------------------------------------------
+
+- strands-agents - Apache License 2.0
+  https://github.com/strands-agents/sdk-python
+  Strands Agent SDK for building production-ready AI agents with observability
+
+- bedrock-agentcore - Apache License 2.0
+  https://github.com/awslabs/bedrock-agentcore-python
+  Amazon Bedrock AgentCore framework for agent development
+
+- boto3 - Apache License 2.0
+  https://github.com/boto/boto3
+  AWS SDK for Python - AWS service integration
+
+- mcp - MIT License
+  https://github.com/modelcontextprotocol/python-sdk
+  Model Context Protocol SDK for tool integration
+
+- httpx - BSD License (BSD-3-Clause)
+  https://github.com/encode/httpx
+  Modern HTTP client for Python with async support
+
+- aws-opentelemetry-distro - Apache License 2.0
+  https://github.com/aws-observability/aws-otel-python-instrumentation
+  AWS OpenTelemetry distribution for Python
+
+- opentelemetry-instrumentation - Apache License 2.0
+  https://github.com/open-telemetry/opentelemetry-python-contrib
+  OpenTelemetry instrumentation libraries
+
+Remediator Agent Dependencies (agentcore-remediator/requirements.txt):
+-----------------------------------------------------------------------
+
+- strands-agents[otel] - Apache License 2.0
+  https://github.com/strands-agents/sdk-python
+  Strands Agent SDK with OpenTelemetry integration
+
+- bedrock-agentcore - Apache License 2.0
+  https://github.com/awslabs/bedrock-agentcore-python
+  Amazon Bedrock AgentCore framework
+
+- boto3 - Apache License 2.0
+  https://github.com/boto/boto3
+  AWS SDK for Python
+
+- aws-opentelemetry-distro - Apache License 2.0
+  https://github.com/aws-observability/aws-otel-python-instrumentation
+  AWS OpenTelemetry distribution
+
+- opentelemetry-instrumentation - Apache License 2.0
+  https://github.com/open-telemetry/opentelemetry-python-contrib
+  OpenTelemetry instrumentation
+
+Lambda Function Dependencies:
+------------------------------
+
+- boto3 - Apache License 2.0
+  https://github.com/boto/boto3
+  Used in: lambda/remediation, lambda/approval, lambda/risk_interceptor
+
+================================================================================
+
+NODE.JS DEPENDENCIES (CDK)
+================================================================================
+
+Infrastructure as Code Dependencies (cdk/package.json):
+--------------------------------------------------------
+
+Production Dependencies:
+- aws-cdk-lib (^2.180.0) - Apache License 2.0
+  https://github.com/aws/aws-cdk
+  AWS Cloud Development Kit library for infrastructure as code
+
+- @aws-cdk/aws-bedrock-agentcore-alpha (^2.247.0-alpha.0) - Apache License 2.0
+  https://github.com/aws/aws-cdk
+  CDK constructs for Amazon Bedrock AgentCore (alpha)
+
+- constructs (^10.4.2) - Apache License 2.0
+  https://github.com/aws/constructs
+  Software construct tree model for cloud infrastructure
+
+- cdk-nag (^2.35.0) - Apache License 2.0
+  https://github.com/cdklabs/cdk-nag
+  CDK security and compliance checking library
+
+Development Dependencies:
+- @types/node (^22.0.0) - MIT License
+  https://github.com/DefinitelyTyped/DefinitelyTyped
+  TypeScript type definitions for Node.js
+
+- typescript (~5.7.0) - Apache License 2.0
+  https://github.com/microsoft/TypeScript
+  TypeScript compiler and language
+
+- ts-node (^10.9.0) - MIT License
+  https://github.com/TypeStrong/ts-node
+  TypeScript execution environment for Node.js
+
+- aws-cdk (^2.180.0) - Apache License 2.0
+  https://github.com/aws/aws-cdk
+  AWS CDK command-line toolkit
+
+- jest (^29.7.0) - MIT License
+  https://github.com/jestjs/jest
+  JavaScript testing framework
+
+- @types/jest (^29.5.0) - MIT License
+  https://github.com/DefinitelyTyped/DefinitelyTyped
+  TypeScript type definitions for Jest
+
+- ts-jest (^29.2.0) - MIT License
+  https://github.com/kulshekhar/ts-jest
+  TypeScript preprocessor for Jest
+
+================================================================================
+
+NODE.JS DEPENDENCIES (FRONTEND)
+================================================================================
+
+Web Application Dependencies (frontend/package.json):
+------------------------------------------------------
+
+Production Dependencies:
+- react (^18.3.1) - MIT License
+  https://github.com/facebook/react
+  React framework for building user interfaces
+
+- react-dom (^18.3.1) - MIT License
+  https://github.com/facebook/react
+  React package for DOM rendering
+
+- react-router-dom (^7.1.0) - MIT License
+  https://github.com/remix-run/react-router
+  Declarative routing for React applications
+
+- aws-amplify (^6.12.0) - Apache License 2.0
+  https://github.com/aws-amplify/amplify-js
+  AWS Amplify JavaScript library for cloud integration
+
+- @aws-amplify/auth (^6.12.0) - Apache License 2.0
+  https://github.com/aws-amplify/amplify-js
+  AWS Amplify authentication module
+
+- @aws-amplify/ui-react (^6.7.0) - Apache License 2.0
+  https://github.com/aws-amplify/amplify-ui
+  AWS Amplify UI components for React
+
+- @aws-crypto/sha256-js (^5.2.0) - Apache License 2.0
+  https://github.com/aws/aws-sdk-js-crypto-helpers
+  AWS SDK SHA256 cryptographic functions
+
+- @aws-sdk/protocol-http (^3.370.0) - Apache License 2.0
+  https://github.com/aws/aws-sdk-js-v3
+  AWS SDK HTTP protocol handlers
+
+- @aws-sdk/signature-v4 (^3.370.0) - Apache License 2.0
+  https://github.com/aws/aws-sdk-js-v3
+  AWS SDK Signature Version 4 signing
+
+- react-markdown (^9.0.1) - MIT License
+  https://github.com/remarkjs/react-markdown
+  Markdown component for React
+
+- recharts (^2.15.0) - MIT License
+  https://github.com/recharts/recharts
+  Composable charting library for React
+
+- remark-gfm (^4.0.1) - MIT License
+  https://github.com/remarkjs/remark-gfm
+  GitHub Flavored Markdown plugin for remark
+
+Development Dependencies:
+- @types/react (^18.3.12) - MIT License
+  https://github.com/DefinitelyTyped/DefinitelyTyped
+  TypeScript type definitions for React
+
+- @types/react-dom (^18.3.1) - MIT License
+  https://github.com/DefinitelyTyped/DefinitelyTyped
+  TypeScript type definitions for React DOM
+
+- @vitejs/plugin-react (^4.3.4) - MIT License
+  https://github.com/vitejs/vite-plugin-react
+  Official React plugin for Vite
+
+- typescript (^5.6.3) - Apache License 2.0
+  https://github.com/microsoft/TypeScript
+  TypeScript compiler
+
+- vite (^6.0.0) - MIT License
+  https://github.com/vitejs/vite
+  Next generation frontend build tool
+
+================================================================================
+
+LICENSE INFORMATION SUMMARY
+================================================================================
+
+This project uses dependencies under the following licenses:
+
+1. Apache License 2.0
+   - Permissive license allowing use, modification, and distribution
+   - Requires preservation of copyright and license notices
+   - Provides patent license grant
+   - Used by: AWS SDKs, Bedrock AgentCore, Strands, CDK, Amplify, TypeScript
+
+2. MIT License
+   - Highly permissive open source license
+   - Allows use, modification, and distribution with minimal restrictions
+   - Requires copyright notice and license text in distributions
+   - Used by: MCP, React, Jest, Vite, Recharts, ts-node, remark-gfm
+
+3. BSD License (BSD-3-Clause)
+   - Permissive license similar to MIT
+   - Allows redistribution with copyright notice
+   - Contains non-endorsement clause
+   - Used by: httpx
+
+All licenses are compatible with the MIT-0 license used by this project.
+
+================================================================================
+
+NOTES
+================================================================================
+
+1. Version information reflects the constraints specified in package manifests
+2. Development dependencies are included for completeness but are not bundled 
+   in production deployments
+3. Transitive dependencies (sub-dependencies) inherit licenses from their 
+   parent packages
+4. This NOTICE file should be distributed with any fork or distribution of 
+   this project
+5. For complete license texts, refer to the LICENSE files in each dependency's 
+   repository
+6. License information was verified at time of generation but should be 
+   validated before production use
+
+================================================================================
+
+Last Updated: 2025-01-28
+Generated for aws-samples publication preparation

@@ -1,0 +1,372 @@
+/* Governance components styles */
+
+/* RoleBadge */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.role-badge--analyst {
+  background: #1a3a5c;
+  color: #87ceeb;
+}
+
+.role-badge--engineer {
+  background: #4d3319;
+  color: var(--color-aws-orange);
+}
+
+.role-badge--manager {
+  background: #1a4d1a;
+  color: #90ee90;
+}
+
+/* RemediationModal */
+.remediation-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.remediation-modal {
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 28px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.remediation-modal__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+
+.remediation-modal__detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.85rem;
+}
+
+.remediation-modal__label {
+  color: var(--color-text-secondary);
+}
+
+.remediation-modal__value {
+  font-weight: 500;
+}
+
+.remediation-modal__risk {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.remediation-modal__risk--low {
+  background: #1a4d1a;
+  color: #90ee90;
+}
+
+.remediation-modal__risk--medium {
+  background: #4d4d1a;
+  color: #ffd700;
+}
+
+.remediation-modal__risk--high {
+  background: #4d1a1a;
+  color: #ff6b6b;
+}
+
+.remediation-modal__warning {
+  margin-top: 16px;
+  padding: 12px;
+  background: #4d1a1a;
+  border: 1px solid #ff6b6b;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: #ff6b6b;
+}
+
+.remediation-modal__actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+
+.remediation-modal__btn {
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+
+.remediation-modal__btn--confirm {
+  background: var(--color-aws-orange);
+  color: #000;
+}
+
+.remediation-modal__btn--confirm:hover {
+  opacity: 0.9;
+}
+
+.remediation-modal__btn--cancel {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.remediation-modal__btn--cancel:hover {
+  border-color: var(--color-text-secondary);
+}
+
+/* AuthorizationFeedback */
+.auth-feedback {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin: 12px 0;
+  position: relative;
+}
+
+.auth-feedback--allow {
+  background: #1a4d1a;
+  border: 1px solid #2d7a2d;
+  color: #90ee90;
+}
+
+.auth-feedback--deny {
+  background: #4d1a1a;
+  border: 1px solid #7a2d2d;
+  color: #ff6b6b;
+}
+
+.auth-feedback--pending {
+  background: #4d4d1a;
+  border: 1px solid #7a7a2d;
+  color: #ffd700;
+}
+
+.auth-feedback__message {
+  flex: 1;
+}
+
+.auth-feedback__reason {
+  margin-top: 4px;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.auth-feedback__dismiss {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0 4px;
+  opacity: 0.7;
+}
+
+.auth-feedback__dismiss:hover {
+  opacity: 1;
+}
+
+/* AuditLog */
+.audit-log {
+  margin-top: 24px;
+}
+
+.audit-log__filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.audit-log__filter-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  background: var(--color-background-tertiary);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+.audit-log__filter-btn--active {
+  background: var(--color-aws-orange);
+  color: #000;
+  border-color: var(--color-aws-orange);
+}
+
+.audit-log__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.audit-log__table th {
+  text-align: left;
+  padding: 10px 12px;
+  background: var(--color-background-tertiary);
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.audit-log__table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.audit-log__result {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.audit-log__result--executed {
+  background: #1a4d1a;
+  color: #90ee90;
+}
+
+.audit-log__result--denied {
+  background: #4d1a1a;
+  color: #ff6b6b;
+}
+
+.audit-log__result--pending {
+  background: #4d4d1a;
+  color: #ffd700;
+}
+
+.audit-log__empty {
+  text-align: center;
+  padding: 32px;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+}
+
+
+/* ApprovalStatus */
+.approval-status {
+  margin-top: 24px;
+}
+
+.approval-status__title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.approval-status__empty {
+  text-align: center;
+  padding: 24px;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+}
+
+.approval-status__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.approval-status__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--color-background-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.approval-status__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.approval-status__action {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.approval-status__resource {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-family: monospace;
+}
+
+.approval-status__meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.approval-status__badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.approval-status__badge--pending {
+  background: #4d4d1a;
+  color: #ffd700;
+}
+
+.approval-status__badge--approved {
+  background: #1a4d1a;
+  color: #90ee90;
+}
+
+.approval-status__badge--denied {
+  background: #4d1a1a;
+  color: #ff6b6b;
+}
+
+.approval-status__badge--expired {
+  background: #2d2d2d;
+  color: #888;
+}
+
+.approval-status__badge--executed {
+  background: #1a4d1a;
+  color: #90ee90;
+}
+
+.approval-status__date {
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+}

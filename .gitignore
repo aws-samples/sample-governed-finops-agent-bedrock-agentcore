@@ -1,0 +1,85 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+.env
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Vite / Frontend build
+frontend/dist/
+
+# AWS CDK
+cdk.out/
+cdk/lib/*.js
+cdk/lib/*.d.ts
+cdk/bin/*.js
+cdk/bin/*.d.ts
+!cdk/jest.config.js
+
+# AWS SAM
+.aws-sam/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+*.env
+.env.*
+
+# AWS Credentials
+.aws/
+aws-credentials
+credentials
+config
+
+# Private Keys
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+
+# Local Configuration
+local.config
+local.json
+local.yaml
+local.yml
+*.local.conf
+
+# Test coverage
+coverage/
+htmlcov/
+.coverage
+
+# Build artifacts
+*.zip
+
+# Draw.io backup files
+*.bkp
+.$*

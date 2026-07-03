@@ -1,0 +1,6 @@
+{
+  "account": "123456789012",
+  "region": "us-east-1",
+  "approvalApiUrl": "https://YOUR_API_ID.execute-api.us-east-1.amazonaws.com",
+  "approverEmail": "your-email@example.com"
+}
