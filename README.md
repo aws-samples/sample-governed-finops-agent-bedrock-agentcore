@@ -16,7 +16,7 @@ A conversational FinOps agent built on Amazon Bedrock AgentCore that analyzes AW
 
 - **Conversational Cost Analysis** — Query AWS billing data using natural language
 - **Resource Optimization** — Detect underutilized EC2 instances, idle EBS volumes, and upgrade opportunities
-- **One-Click Remediation** — Execute actions (resize, stop, terminate, delete, migrate storage) directly from the chat
+- **One-Click Remediation** — Execute actions (resize, stop, terminate, delete, modify storage) directly from the chat
 - **Cedar Policy Authorization** — Role-based access control via AgentCore Policy Engine (Analyst/Engineer/Manager)
 - **Human-in-the-Loop** — High-risk actions require email approval before execution
 - **Audit Trail** — All actions logged to DynamoDB with user identity, role, and outcome
@@ -41,32 +41,52 @@ For detailed architecture documentation, see [docs/ARCHITECTURE.md](docs/ARCHITE
 
 ## Quick Start
 
+### 1. Clone and Install
+
 ```bash
-# Clone and install
-git clone https://github.com/aws-samples/agentcore-cost-optimizer.git
-cd agentcore-cost-optimizer
+git clone https://github.com/aws-samples/sample-governed-finops-agent-bedrock-agentcore.git
+cd sample-governed-finops-agent-bedrock-agentcore
 cd cdk && npm ci && cd ..
 cd frontend && npm ci && cd ..
-
-# Bootstrap CDK (first time only)
-cd cdk && npx cdk bootstrap
-
-# Deploy all stacks (~15-20 minutes)
-npx cdk deploy --all --require-approval never
 ```
 
-## Post-Deployment Setup
+### 2. Deploy Backend
 
-After deployment, CDK outputs the resource IDs needed below.
+```bash
+cd cdk
+
+# Bootstrap CDK (first time only)
+npx cdk bootstrap
+
+# Deploy all stacks (~15-20 minutes)
+npx cdk deploy --all --require-approval never --context approverEmail=your-approver@example.com
+```
+
+This deploys all backend infrastructure and automatically builds the container images via CodeBuild.
+
+After deployment, note the CDK outputs — you will need `UserPoolId`, `UserPoolClientId`, `IdentityPoolId`, `AgentCoreArn`, and `RemediatorGatewayUrl` for the frontend configuration.
+
+### 3. Deploy Frontend
+
+```bash
+cd frontend
+cp .env.example .env
+# Fill .env with CDK outputs (UserPoolId, ClientId, IdentityPoolId, RuntimeArn, etc.)
+npm run build
+```
+
+Deploy the `dist/` directory to an S3 bucket with a CloudFront distribution. Then add your CloudFront URL to the Cognito App Client callback and logout URLs (AWS Console > Cognito > User Pools > `costopt-users` > App Client > Hosted UI).
+
+## Post-Deployment Setup
 
 ### 1. Create a User
 
 ```bash
 aws cognito-idp admin-create-user \
   --user-pool-id <UserPoolId> \
-  --username your-email@example.com \
-  --user-attributes Name=email,Value=your-email@example.com Name=email_verified,Value=true \
-  --temporary-password TempPassword123! \
+  --username <your-email> \
+  --user-attributes Name=email,Value=<your-email> Name=name,Value=<your-name> Name=email_verified,Value=true \
+  --temporary-password <TempPassword> \
   --message-action SUPPRESS
 ```
 
@@ -83,7 +103,7 @@ Users must be in a group for remediation actions to work. Without a group, the C
 ```bash
 aws cognito-idp admin-add-user-to-group \
   --user-pool-id <UserPoolId> \
-  --username your-email@example.com \
+  --username <your-email> \
   --group-name CostOpt-Manager
 ```
 
@@ -95,19 +115,15 @@ High-risk actions send approval requests via email. Approvers are defined by the
 aws sns subscribe \
   --topic-arn <ApprovalSNSTopic> \
   --protocol email \
-  --notification-endpoint approver@example.com \
+  --notification-endpoint <approver-email> \
   --region us-east-1
 ```
 
 The approver must click the confirmation link in the email AWS sends.
 
-### 4. Add CloudFront URL to Cognito
-
-After deployment, add your CloudFront URL to the Cognito App Client callback/logout URLs (via AWS Console > Cognito > User Pool > App Client > Hosted UI settings).
-
 ## Usage
 
-Navigate to the CloudFront URL from CDK outputs, log in, and start asking questions:
+Navigate to your CloudFront URL, log in with the user created above, and start asking questions:
 
 - "What are my top 5 AWS costs this month?"
 - "Are there any unattached EBS volumes?"
@@ -118,7 +134,7 @@ When the agent finds optimizations, action buttons appear below the response. Cl
 ## Project Structure
 
 ```
-agentcore-cost-optimizer/
+sample-governed-finops-agent-bedrock-agentcore/
 ├── src/
 │   ├── recommender/        # Recommender Agent (Strands + Claude)
 │   └── remediator/         # Remediator Agent (executes actions)
@@ -135,12 +151,13 @@ agentcore-cost-optimizer/
 | Stack | Purpose |
 |-------|---------|
 | CostOptAuthStack | Cognito User Pool + Identity Pool |
-| CostOptImageStack | ECR repos + CodeBuild projects |
+| CostOptImageStack | ECR repos + CodeBuild projects (auto-builds container images) |
 | CostOptMCPRuntimeStack | Billing and Pricing MCP server runtimes |
 | CostOptGatewayStack | MCP Gateway (JWT-authenticated) |
 | CostOptAgentRuntimeStack | Recommender Agent Runtime |
 | CostOptRemediatorStack | Remediator Agent Runtime + remediation Lambdas |
 | CostOptRemediatorGatewayStack | Remediator Gateway + Policy Engine + Cedar |
+| CostOptRiskInterceptorStack | Risk classification interceptor |
 | CostOptApprovalStack | HITL approval workflow (API GW + SNS + DynamoDB) |
 
 ## Cleanup
@@ -149,6 +166,8 @@ agentcore-cost-optimizer/
 cd cdk
 npx cdk destroy --all
 ```
+
+Remember to also delete the S3 bucket and CloudFront distribution used for the frontend.
 
 ## Security
 
